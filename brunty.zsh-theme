@@ -1,7 +1,3 @@
-if [ "x$OH_MY_ZSH_HG" = "x" ]; then
-    OH_MY_ZSH_HG="hg"
-fi
-
 function virtualenv_info {
     [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
 }
@@ -10,18 +6,11 @@ function box_name {
     [ -f ~/.box-name ] && cat ~/.box-name || hostname -s
 }
 
+local return_status="%{$fg[red]%}%(?..✘)%{$reset_color%}"
+
+# Set our prompt
 PROMPT='%{$reset_color%}[%{$fg[white]%}%D{%H:%M}%{$fg[white]%}%{$reset_color%}] %{$fg[white]%}%n%{$reset_color%}@%{$fg[white]%}$(box_name)%{$reset_color%} [%{$fg[cyan]%}${PWD/#$HOME/~}%{$reset_color%}]
 $(virtualenv_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )> '
-
-ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%}!"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[green]%}?"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-
-local return_status="%{$fg[red]%}%(?..✘)%{$reset_color%}"
-#RPROMPT='${return_status}%{$reset_color%}'
-
 
 ###############################################################
 # Adapted from code found at <https://gist.github.com/1712320>.
@@ -81,7 +70,6 @@ parse_git_state() {
   if [[ -n $GIT_STATE ]]; then
     echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
   fi
-
 }
 
 # If inside a Git repository, print its branch and state
@@ -93,9 +81,8 @@ git_prompt_string() {
 # Set the right-hand prompt
 RPROMPT='$(git_prompt_string)'
 
-
+# Reload the prompt every 10 seconds.
 TMOUT=10
-
 TRAPALRM() {
     zle reset-prompt
 }
