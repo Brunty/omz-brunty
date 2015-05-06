@@ -81,8 +81,8 @@ git_prompt_string() {
 # Set the right-hand prompt
 RPROMPT='$(git_prompt_string)'
 
-# Reload the prompt every 10 seconds.
-TMOUT=10
+# Reload the prompt every 30 seconds.
+TMOUT=30
 TRAPALRM() {
     zle reset-prompt
 }
