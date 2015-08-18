@@ -9,7 +9,7 @@ function box_name {
 local return_status="%{$fg[red]%}%(?..✘)%{$reset_color%}"
 
 # Set our prompt
-PROMPT='%{$reset_color%}[%{$fg[white]%}%D{%H:%M}%{$fg[white]%}%{$reset_color%}] %{$fg[white]%}%n%{$reset_color%}@%{$fg[white]%}$(box_name)%{$reset_color%} [%{$fg[cyan]%}${PWD/#$HOME/~}%{$reset_color%}]
+PROMPT='%{$reset_color%}[%{$fg[white]%}%D{%H:%M}%{$fg[white]%}%{$reset_color%}] %{$fg[white]%}%n%{$reset_color%}@%{$fg[cyan]%}$(box_name)%{$reset_color%} [%{$fg[cyan]%}${PWD/#$HOME/~}%{$reset_color%}]
 $(virtualenv_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )> '
 
 ###############################################################
