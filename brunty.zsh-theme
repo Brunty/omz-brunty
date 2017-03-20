@@ -82,7 +82,7 @@ git_prompt_string() {
 RPROMPT='$(git_prompt_string)'
 
 # Reload the prompt every 30 seconds.
-TMOUT=30
-TRAPALRM() {
-    zle reset-prompt
-}
+#TMOUT=30
+#TRAPALRM() {
+#    zle reset-prompt
+#}
