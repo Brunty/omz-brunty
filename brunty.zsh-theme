@@ -72,10 +72,20 @@ parse_git_state() {
   fi
 }
 
+git_stash() {
+  local -a stashes
+
+  if [[ -s $(command git rev-parse --git-dir)/refs/stash ]] ; then
+    stashes=$(command git stash list 2>/dev/null | wc -l)
+    stashes="${stashes// /}"
+    echo "$GIT_PROMPT_PREFIX$stashes$GIT_PROMPT_SUFFIX"
+  fi
+}
+
 # If inside a Git repository, print its branch and state
 git_prompt_string() {
   local git_where="$(parse_git_branch)"
-  [ -n "$git_where" ] && echo "$GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[cyan]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
+  [ -n "$git_where" ] && echo "$GIT_PROMPT_SYMBOL$(git_stash)$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[cyan]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
 }
 
 # Set the right-hand prompt
